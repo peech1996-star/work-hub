@@ -639,7 +639,7 @@ body { margin: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: en
       res = await fetch(CFG.url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ key: CFG.key, ...body }) });
     } catch (e) { throw { code: 'unavailable' }; }
     let j; try { j = await res.json(); } catch (e) { throw { code: 'unavailable' }; }
-    if (!j.ok) throw { code: j.error === 'auth' ? 'auth' : 'unavailable', message: j.error };
+    if (!j.ok) throw { code: j.error === 'auth' ? 'auth' : j.error === 'locked' ? 'locked' : 'unavailable', message: j.error };
     return j;
   }
 
@@ -695,7 +695,7 @@ body { margin: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: en
       showApp(true); toast('어서 오세요, 민지 님! 🐰');
     } catch (ex) {
       CFG = null;
-      err.textContent = ex.code === 'auth' ? '비밀번호가 맞지 않아요.' : '시트에 연결하지 못했어요. 주소와 Apps Script 배포 설정(액세스: 모든 사용자)을 확인해 주세요.';
+      err.textContent = ex.code === 'auth' ? '비밀번호가 맞지 않아요.' : ex.code === 'locked' ? '비밀번호를 여러 번 틀려서 10분 동안 잠겼어요. 잠시 후 다시 해 주세요.' : '시트에 연결하지 못했어요. 주소와 Apps Script 배포 설정(액세스: 모든 사용자)을 확인해 주세요.';
     } finally { btn.disabled = false; btn.textContent = '열기'; }
   });
   $('btn-logout').addEventListener('click', () => { lock(); toast('잠갔어요'); });
