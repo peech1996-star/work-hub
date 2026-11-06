@@ -623,7 +623,7 @@ body { margin: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: en
 
   // ---------- 구글 시트 연결 ----------
   // 이 페이지에는 업무 데이터가 들어 있지 않아요. 비밀번호가 맞을 때만 Apps Script가 시트 내용을 돌려줘요.
-  const SCRIPT_URL = '';   // 비워 두면 처음 열 때 주소를 물어봐요. 여기에 적어 두면 비밀번호만 물어봐요.
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwwW2WsUk3x7p4brfVk413-mTfMQyxcD_cOn3sDj6umkH_kryLt7e--bUwZ1WNhxhsB/exec';   // 비워 두면 처음 열 때 주소를 물어봐요. 여기에 적어 두면 비밀번호만 물어봐요.
   const CFG_KEY = 'workhub.cfg';
   const COLS = ['routines', 'checks', 'tasks', 'projects', 'links'];
   const store = {
