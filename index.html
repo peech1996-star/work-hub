@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://script.google.com https://script.googleusercontent.com; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
 <title>교육사업부 업무 허브</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -343,6 +345,7 @@ body { margin: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: en
 
 <script>
 (() => {
+  if (window.top !== window.self) { document.body.innerHTML = ''; return; }
   const AREAS = ['입과·신고', '과정관리', '기관평가', '요약집·과제가이드', '홈페이지', '제휴·대리점', '매뉴얼', '기타'];
   const STATUS = ['진행 중', '대기', '완료'];
   const DOW = '일월화수목금토';
@@ -409,8 +412,8 @@ body { margin: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: en
   }
   function when(r) {
     if (r.freq === 'daily') return '매일 (평일)';
-    if (r.freq === 'weekly') return `매주 ${DOW[Number(r.dow)]}요일`;
-    if (r.freq === 'monthly') return r.dom === 'last' ? '매월 말일' : `매월 ${r.dom}일`;
+    if (r.freq === 'weekly') return `매주 ${DOW.charAt(Number(r.dow)) || ''}요일`;
+    if (r.freq === 'monthly') return r.dom === 'last' ? '매월 말일' : `매월 ${Number(r.dom) || ''}일`;
     return '';
   }
   const ckey = (rid, date) => `${rid}_${date}`;
